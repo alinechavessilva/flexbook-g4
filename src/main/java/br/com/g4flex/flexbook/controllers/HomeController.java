@@ -25,69 +25,43 @@ import br.com.g4flex.flexbook.models.Usuario;
 public class HomeController{
 
    @Autowired
-   private UsuarioDao UsuarioDao;
+   private UsuarioDao usuarioDao;
    @Autowired
-   MensagenDao mensagenDao = new  MensagenDao();
-   
-   MensagensController msgController = new MensagensController();
-   
-  
-   @RequestMapping("usuario/form")
-   public ModelAndView form(Usuario user){
-      ModelAndView modelAndView = new ModelAndView("usuario/form-add");
-      return modelAndView.addObject(modelAndView);
-
-   }
-
-
-   @RequestMapping(method = RequestMethod.POST)
-   public ModelAndView save(@Valid Usuario user, BindingResult bindingResult){
-      if (bindingResult.hasErrors()){
-         return form(user);
-      } 
-      UsuarioDao.save(user);
-      System.out.println("cadastrando usuario");
-      return new ModelAndView("redirect:/usuario/form-add");
-   }
-
-   @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-   public ModelAndView load(@PathVariable("id") Integer id){
-      ModelAndView modelAndView = new ModelAndView("usuario/form-update");
-      modelAndView.addObject("usuario", UsuarioDao.findById(id));
-      return modelAndView;
-   }
+   private MensagenDao mensagenDao;
 
    @RequestMapping(method = RequestMethod.GET)
    public ModelAndView list(@RequestParam(defaultValue = "0", required = false) int page){
-      ModelAndView modelAndView = new ModelAndView("usuario/list");
-      //////retorna mensagens
-      System.out.println(msgController == null);
-      List<Mensagen> msg = mensagenDao.all();	
-      System.out.println(msg == null);
+      ModelAndView modelAndView = new ModelAndView("index");
+      //////usuarios
+  
+      List<Usuario> listUsers = usuarioDao.all();	
+      for(Object u: usuarioDao.paginated(page, 10).getCurrentList()){
+    	     Usuario user = (Usuario) u;
+    	     listUsers.add(user);
+    	     System.out.println("nome = "+ user.getName());
+	         System.out.println("email = "+ user.getEmail());
+      }
       
-      modelAndView.addObject("paginatedList", UsuarioDao.paginated(page, 10));
-      modelAndView.addObject("listMsg", mensagenDao.paginated(page, 10));
-      modelAndView.addObject("listMsg", msg);
+      
+      
+      
+      
+      
+      
+      
+      List<Mensagen> listMsg = mensagenDao.all();
+      for(Object m : mensagenDao.paginated(page, 10).getCurrentList()){
+    	  Mensagen msg = (Mensagen) m;
+    	  listMsg.add(msg);
+    	  System.out.println("mensagem = " + msg.getMensagem());
+    	  System.out.println("id usuario recebe = " + msg.getId());
+    	   
+      }
+      
+      modelAndView.addObject("listUsuarios", listUsers);
+      modelAndView.addObject("listMensagens", listMsg);
       return modelAndView;
       
    }
-
-   //just because get is easier here. Be my guest if you want to change.
-   @RequestMapping(method = RequestMethod.GET, value = "/remove/{id}")
-   public String remove(@PathVariable("id") Integer id){
-      Usuario user = UsuarioDao.findById(id);
-      UsuarioDao.remove(user);
-      return "redirect:/usuario";
-   }
-
-   @RequestMapping(method = RequestMethod.POST, value = "/{id}")
-   public ModelAndView update(@PathVariable("id") Integer id, @Valid Usuario user, BindingResult bindingResult){
-      user.setId(id);
-      if (bindingResult.hasErrors()){
-         return new ModelAndView("usuario/form-update");
-      }
-      UsuarioDao.update(user);
-      return new ModelAndView("redirect:/usuario");
-   }
-   
+ 
 }

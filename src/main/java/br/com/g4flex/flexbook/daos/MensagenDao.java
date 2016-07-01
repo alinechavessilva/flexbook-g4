@@ -17,7 +17,7 @@ public class MensagenDao
 
    public List<Mensagen> all()
    {
-      return manager.createQuery("select * from mensagen", Mensagen.class).getResultList();
+      return manager.createQuery("select m from Mensagen m", Mensagen.class).getResultList();
    }
 
    public void save(Mensagen msg)

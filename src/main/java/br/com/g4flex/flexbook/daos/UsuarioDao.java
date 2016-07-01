@@ -17,7 +17,7 @@ public class UsuarioDao
 
    public List<Usuario> all()
    {
-      return manager.createQuery("select * from usuario", Usuario.class).getResultList();
+      return manager.createQuery("select u from Usuario u", Usuario.class).getResultList();
    }
 
    public void save(Usuario user){

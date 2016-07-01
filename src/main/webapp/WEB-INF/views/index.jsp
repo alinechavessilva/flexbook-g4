@@ -1,96 +1,172 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
-.paypal-button button.large {
-	min-width: 150px;
-}
+  <meta charset="UTF-8">
+  <title>Flexbook</title>
+  
+<%--  <jsp:attribute name="extraStyles">
+<link rel="stylesheet" href="<c:url value='/assets/css/pagination/jqpagination.css'/>" />
+</jsp:attribute>
+<jsp:attribute name="extraScripts">
+<script src="<c:url value='/assets/js/jquery.jqpagination.js'/>"></script>
+</jsp:attribute> --%>
 
-.paypal-label {
-	margin-left: 30px;
-}
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
+  <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap-theme.min.css'/>">
 
-.paypal-input {
-	margin: 0 20px !important;
-	width: 100px !important;
-	height: 25px !important;
-	border-radius: 5px !important;
-	text-align: center !important;
-}
-
-.paypal-button {
-	min-height: 40px;
-}
-
-.textPay {
-	text-align: center;
-	margin: 10px 50px;
-	font-size: 13px;
-	display: block;
-}
-#usd-button form ,
-#brl-button form {
-	margin: 0;
-}
-
-#usd-button img,
-#brl-button img {
-	margin: 20px auto 0 auto;
-	display: block;
-}
-
-</style><title>Home page</title>
+  <!-- style -->
+   <link rel="stylesheet" href="<c:url value='/assets/css/index.css'/>">
+   <link rel="stylesheet" href="<c:url value='/assets/css/forms.css'/>">
 </head>
-<body> 
-		<p>Your project is configured! Now, what do you think about donate :)?</p>
-		<div id="brl-button">
-			<img src="http://www.setupmyproject.com/images/flags/ptbr.png" alt="brazilian flag"/> 
-			<p class="textPay">
-				A nossa ideia ?? que voc?? inicie o seu projeto o mais r??pido poss??vel, sem perder tempo configurando frameworks e outros detalhes. Ainda tem muito mais por vir, projetos j?? com templates configurados, mais op????es de plugins dentro dos frameworks etc. Entendemos que nosso projeto realmente faz voc?? economizar tempo, ent??o, se for poss??vel, gostar??amos que voc?? nos desse uma ajuda fazendo uma doa????o.  									
-			</p>
-			<p class="textPay">
-				A nossa conta do Paypal ?? brasileira e, se a sua conta no Paypal tamb??m for brasileira, por conta das leis do nosso pa??s, temos que pedir que voc?? doe em reais. Ao lado tem a nossa sugest??o :).
-			</p>
-			<form method="post" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top">
-					<div class="hide" id="errorBox"></div>
-						<input type="hidden" name="button" value="donate"/>
-						<input type="hidden" name="item_name" value="Configured project"/>						
-					
-						<input type="hidden" name="env" value=""/>
-						<input type="hidden" name="currency_code" value="BRL"/>
-						<input type="hidden" name="lc" value="pt_BR"/>
-						<input type="hidden" name="cmd" value="_donations"/>
-						<input type="hidden" name="business" value="DVGVTVC3E9TAN"/>
-						<input type="hidden" name="bn" value="JavaScriptButton_donate"/>
-						<button type="submit" class="paypal-button large">Doar</button>
-				</form>					
-			
-			
-		</div>
-		<div id="usd-button">
-			<img src="http://www.setupmyproject.com/images/flags/usen.png" alt="non brazilian flag"/>
-			<p class="textPay">
-				Our main goal is that you can start your project as fast as possible, without wasting time setting up frameworks and other details. There are a lot of things to come like project with already configured templates, more options of plugins for each framework etc. We really think that our project saves your time, so, if you can, we would like that you to contribute with us making a donation. 
-			</p>
-			<p class="textPay">
-				If you want to donate in dollar, use this button :).				
-			</p>
-			<form method="post" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top">
-					<div class="hide" id="errorBox"></div>
-						<input type="hidden" name="button" value="donate"/>
-						<input type="hidden" name="item_name" value="Configured project"/>
-					
-						<input type="hidden" name="env" value=""/>
-						<input type="hidden" name="currency_code" value="USD"/>
-						<input type="hidden" name="lc" value="en_US"/>
-						<input type="hidden" name="cmd" value="_donations"/>
-						<input type="hidden" name="business" value="DVGVTVC3E9TAN"/>
-						<input type="hidden" name="bn" value="JavaScriptButton_donate"/>
-						<button type="submit" class="paypal-button large">Donate</button>
-			</form>			
-		</div>			
-	</body>
+
+<body>
+  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/flexbook/">Flexbook</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+	            	              <li><a href="<c:url value='/usuario/form'/>"><span class="glyphicon glyphicon-plus-sign"></span> Adicionar Usuario</a></li>	              
+	              <li><a href="<c:url value='/usuario'/>"><span class="glyphicon glyphicon-menu-hamburger"></span> Listar Usuarios</a></li>
+				  <li role="separator" class="divider"></li>
+
+            </ul>
+          </li>
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- FINAL NAV -->
+  
+   <div class="container">
+   <div class="row " style="padding-top:40px;">
+     <br><br>
+ 	  <%-- Retorna as mensagens --%>
+       <div class="col-md-8">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+                Mensagens
+           </div>
+       
+             <div class="panel-body">
+               <ul class="media-list">
+               <table>
+                 <c:forEach var="msg" items="${listMensagens}">
+                  <li class="media"> <br>
+                    <div class="media-body">
+                     <div class="media">
+                      <a class="pull-left" href="#">
+                       <img class="media-object img-circle " src="assets/img/user.png" /></a>
+                         <div class="media-body" >
+                            <tr>
+		                     <td>${msg.id}</td>
+		                     <td>${msg.mensagem}</td>
+					        </tr>
+                           <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                            <hr />
+                           </div>
+                          </div>
+                        </div>
+                      </li>           
+	                </c:forEach>
+                   </table>
+     </div>
+                
+	               <%--  <c:forEach var="msgRecebidas" items="${listaMsgRecebidas}"> 
+	                <li class="media"><br>
+                     <div class="media-body">
+                      <div class="media">
+                       <a class="pull-left" href="#">
+                        <img class="media-object img-circle " src="imagens/usuario2G4.jpg" /></a>
+                         <div class="media-body" >
+                           <c:out value="${msgRecebidas.mensag}"></c:out>
+                           <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                            <hr />
+                           </div>
+                          </div>
+                        </div>
+                      </li>
+                     </c:forEach> --%>
+	                
+                   </ul>
+                 </div>
+                </div>  
+
+<!-- envio de mensagens -->
+<div class="panel-footer">
+     <div class="input-group">
+        	<jsp:useBean id="recebid" class="br.com.mensagens.RecebeIds"/>
+		  	
+			 <form action="MensagensServlet" method="post">
+			    <input name="user_recb" type="hidden" value="${msg.id_usuarioRec}"/>
+	     		<input name="id_usuarioEnv" type="hidden" value="${msg.id_usuarioEnv}"/>
+				<input type="text" name="campoMensagem"
+				 placeholder="Digite sua mensagem..." />
+				<span class="input-group-btn">
+                 <input type="submit" class="btn btn-info" value="Enviar" />
+                </span>
+			 </form>                    
+     
+      </div>
+     </div>
+ <!-- exibe usuarios -->
+
+
+<div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+               Usuários
+            </div>
+            <div class="panel-body">
+	             <c:forEach var="usuario" items="${listUsuarios}">
+                  <ul class="media-list">
+                      <li class="media">
+                       <div class="media-body">
+                         <div class="media">
+                           <div class="media-body" >                           
+								<form action="RecebeIds" method="post">
+								<!--  <input name="user_recb" type="hidden" value="${usuario_rec.id}"/>
+								<input name="id_usuarioEnv" type="hidden" value="${usuarioLogado.id}"/>-->
+								<button type="submit">${usuario.name}</button><br>
+								</form>
+							    ${usuario.email}	
+							  <small class="text-muted">Active From 3 hours</small>
+                           </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>         
+			   </c:forEach>					 
+			 </h5>
+			</div> 
+          </div>
+        </div>                          
+  </div>
+</div>
+<%-- <template:paginationComponent paginatedList="${paginatedList}" page="${param.page}" action=""/> --%>
+<script type="text/javascript" src="assets/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+
+<script src="<c:url value='/assets/js/jquery-2.1.4.min.js'/>"></script>
+<script src="<c:url value='/assets/js/bootstrap.min.js'/>"></script>
+
+
+</body>
 </html>
